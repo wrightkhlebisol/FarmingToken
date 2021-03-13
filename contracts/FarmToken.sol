@@ -29,6 +29,14 @@ contract FarmToken is ERC20 {
 		require(_amount > 0, "amount cannot be 0");
 
 		token.safeTransferFrom(msg.sender, address(this), _amount);
+
+		_mint(msg.sender, _amount);
+	}
+
+	function withdraw(uint256 _amount) public {
+		_burn(msg.sender, _amount);
+
+		token.safeTransfer(msg.sender, _amount);
 	}
 
 }
